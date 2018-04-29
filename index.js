@@ -1,11 +1,10 @@
-let store = ({drivers: [], passengers: [], trips: []});
+let store = {drivers: [], passengers: [], trips: []};
 
 let driverId = 0;
 class Driver { //has many trips, and has many passengers through trips.
   constructor(name) {
     this.name = name;
     this.id = driverId++;
-
     store.drivers.push(this);
   }
 
@@ -15,11 +14,11 @@ class Driver { //has many trips, and has many passengers through trips.
     });
   }
 
-  // passengers() {
-  //   return store.passengers.filter(passenger => {
-  //     return passenger.driverId === this.id;
-  //   })
-  // }
+  passengers() {
+    return this.trips().map(trip => {
+      return trip.passenger();
+    });
+  }
 };
 
 let passengerId = 0;
@@ -32,15 +31,15 @@ class Passenger { //has many trips, and has many drivers through trips.
 
   trips() {
     return store.trips.filter(trip => {
-      return trip.passengerId === this.id;
+      return trip.passengerId == this.id;
     });
   }
 
-  // drivers() {
-  //   return store.trips.filter(trip => {
-  //     return trip.driverId === this.id;
-  //   });
-  // };
+  drivers() {
+    return this.trips().map(trip => {
+      return trip.driver();
+    });
+  }
 };
 
 let tripId = 0;
