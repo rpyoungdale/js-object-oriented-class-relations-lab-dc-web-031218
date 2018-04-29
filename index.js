@@ -11,8 +11,8 @@ class Driver { //has many trips, and has many passengers through trips.
 
   trips() {
     return store.trips.filter(trip => {
-      return trip.driverId == this.id
-    })
+      return trip.driverId == this.id;
+    });
   }
 
   // passengers() {
@@ -27,7 +27,6 @@ class Passenger { //has many trips, and has many drivers through trips.
   constructor (name) {
     this.name = name;
     this.id = passengerId++;
-
     store.passengers.push(this);
   };
 
@@ -35,7 +34,7 @@ class Passenger { //has many trips, and has many drivers through trips.
     return store.trips.filter(trip => {
       return trip.passengerId === this.id;
     });
-  };
+  }
 
   // drivers() {
   //   return store.trips.filter(trip => {
@@ -54,14 +53,14 @@ class Trip { //belongs to a driver and belongs to a passenger.
   }
 
   driver() {
-    return store.drivers.find(function(driver){
+    return store.drivers.find(driver => {
       return driver.id === this.driverId
-    })
+    });
   }
 
   passenger() {
-    return store.passengers.find(function(passenger){
+    return store.passengers.find(passenger => {
       return passenger.id === this.passengerId
-    })
+    });
   }
 };
