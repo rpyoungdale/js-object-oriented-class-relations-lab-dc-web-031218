@@ -4,7 +4,7 @@ let driverId = 0;
 class Driver { //has many trips, and has many passengers through trips.
   constructor(name) {
     this.name = name;
-    this.id = ++driverId;
+    this.id = driverId++;
 
     store.drivers.push(this);
   }
@@ -26,7 +26,7 @@ let passengerId = 0;
 class Passenger { //has many trips, and has many drivers through trips.
   constructor (name) {
     this.name = name;
-    this.id = ++passengerId;
+    this.id = passengerId++;
 
     store.passengers.push(this);
   };
@@ -46,25 +46,12 @@ class Passenger { //has many trips, and has many drivers through trips.
 
 let tripId = 0;
 class Trip { //belongs to a driver and belongs to a passenger.
-  constructor (name, driver, passenger) {
-    this.name = name;
-    this.id = ++tripId;
-    if(driver){
-      this.driverId = driver.id;
-    };
-    if(passenger){
-      this.passengerId = passenger.id;
-    };
-    store.trips.push(this);
-  };
-
-  setDriver(driver){
+  constructor (driver, passenger) {
     this.driverId = driver.id;
-  };
-
-  setPassenger(passenger){
     this.passengerId = passenger.id;
-  };
+    this.id = tripId++;
+    store.trips.push(this);
+  }
 
   driver() {
     return store.drivers.find(function(driver){
